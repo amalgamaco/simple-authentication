@@ -1,0 +1,15 @@
+image: ruby:3.1.2
+stages:
+  - test
+.base_setup:
+  before_script:
+    - gem install json
+    - bundle install
+
+run_tests:
+  stage: test
+  extends: .base_setup
+  script:
+    - bundle exec rspec
+  tags:
+    - docker
