@@ -1,0 +1,134 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+Rails:
+   Enabled: true
+
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  DefaultFormatter: html
+  Exclude:
+     - bin/**/*
+     - db/**/*
+     - vendor/**/*
+     - tmp/**/*
+     - config/**/*
+     - Gemfile*
+     - .simplecov
+     - spec/swagger_helper.rb
+     - lib/tasks/auto_annotate_models.rake
+
+Layout/LineLength:
+  Enabled: true
+  Max: 100
+
+Layout/IndentationStyle:
+  Enabled: true
+  EnforcedStyle: tabs
+
+Layout/CommentIndentation:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+Layout/IndentationWidth:
+  Enabled: false
+
+Layout/FirstParameterIndentation:
+  Enabled: true
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+Layout/FirstArgumentIndentation:
+  Enabled: false
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+Layout/ParameterAlignment:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+  EnforcedStyle: outdent
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: true
+
+Layout/SpaceInsideReferenceBrackets:
+  Enabled: true
+
+Layout/SpaceInsideParens:
+  Enabled: true
+
+Layout/SpaceInsideRangeLiteral:
+  Enabled: true
+
+Layout/SpaceAroundBlockParameters:
+  Enabled: true
+
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: true
+
+Layout/CaseIndentation:
+  Enabled: true
+  EnforcedStyle: end
+
+Style/AutoResourceCleanup:
+  Enabled: true
+
+Style/LambdaCall:
+  Enabled: true
+
+RSpec/ExampleWording:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: true
+  Max: 4
+
+RSpec/ContextWording:
+  Enabled: true
+  Prefixes:
+    - when
+    - with
+    - without
+    - if
+    - unless
+    - for
+    - post
+    - get
+    - delete
+    - patch
+    - swagger
+    - and
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+     - spec/**/*
+
+Naming/PredicateName:
+  Enabled: false
