@@ -2,6 +2,11 @@ require_relative "boot"
 
 require "rails/all"
 
+require 'rspec'
+require 'byebug'
+require 'devise'
+require 'doorkeeper'
+require 'factory_bot_rails'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -23,5 +28,7 @@ module Dummy
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+	config.hosts.clear
   end
 end
+Rails.application.routes.default_url_options[:host] = "localhost"

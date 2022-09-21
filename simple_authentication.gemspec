@@ -22,12 +22,20 @@ Gem::Specification.new do |spec|
 	end
 
 	spec.add_dependency 'rails', '>= 7.0.3.1'
-	spec.add_dependency "byebug"
-	spec.add_dependency "rake"
-	spec.add_dependency "bundler"
-	spec.add_dependency "openssl"
+	spec.add_dependency 'rake'
+	spec.add_dependency 'rspec'
+	spec.add_dependency 'rspec-rails'
+	spec.add_dependency 'bundler'
+	spec.add_dependency 'openssl'
 
 	spec.add_dependency('railties', '>= 5.2.0') # encrypted credentials
 	spec.add_development_dependency 'test-unit-rails'
 	spec.add_development_dependency 'rubocop-rails'
+	spec.add_development_dependency 'byebug'
+	spec.add_development_dependency 'factory_bot_rails'
+	spec.add_development_dependency 'shoulda-matchers'
+
+	spec.add_development_dependency 'doorkeeper'
+	spec.add_development_dependency 'config'
+	spec.add_development_dependency 'devise'
 end

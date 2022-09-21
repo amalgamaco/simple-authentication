@@ -1,28 +1,21 @@
 # SimpleAuthentication
-Short description and motivation.
 
-## Usage
-How to use my plugin.
+SimpleAuthentication es una gema que se encarga de facilitar y abstraer la logica involucrada en los procesos de autorizacion ( sign_up, login ,reset password,etc...). Sigue en desarrollo, pero al momento de escribir este README , la funcionalidad de el sign_up esta disponible
 
-## Installation
-Add this line to your application's Gemfile:
+## Como usar esta gema
+Para usar esta gema, simplemente hay que saber como funcionan las distintas partes de la misma, que queramos usar. Las voy a describir a continuacion:
 
-```ruby
-gem "simple_authentication"
+### Controller
+La gema provee una clase controller llamada `SimpleAuth` que llama a los interactors correspondientes a cada funcionalidad. La idea es crear controllers para nuestros modelos que hereden esta clase SimpleAuth y que implementen los metodos `user_klass_name` y `user_attributes` donde como lo indican sus nombres, vamos a definir el nombre del modelo como un string por si tuviesemos el modelo `User`:
+
+```rb
+def user_klass_name
+	'user'
+end
 ```
+Y para `user_attributes` vamos a definir los `params` que permitir o requerir para crear una nueva instancia del modelo.
 
-And then execute:
-```bash
-$ bundle
-```
+### SignUp
+Para el signUp tenemos un metodo del controller `sign_up` que se encarga de llamar a este interactor pasandole la user_klass_name y los user_attributes que definimos en el controller.
+Al momento de escribir este README, el interactor `signUp` simplemente crea una instancia del modelo que se le indica con los atributos que se le pasan, no hace nada mas por ahora.
 
-Or install it yourself as:
-```bash
-$ gem install simple_authentication
-```
-
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
