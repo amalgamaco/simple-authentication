@@ -2,6 +2,7 @@
 
 ENV['RAILS_ENV'] = 'test'
 
+require 'active_record'
 require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
