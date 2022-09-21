@@ -8,7 +8,12 @@ module SimpleAuthentication
 		autoload :SimpleAuth, 'simple_authentication/controllers/simple_auth'
 	end
 
+	module Errors
+		autoload :UnprocessableError, 'simple_authentication/errors/unprocessable_error'
+	end
+
 	module Interactors
 		autoload :SignUp, 'simple_authentication/interactors/sign_up'
+		autoload :ResetPassword, 'simple_authentication/interactors/reset_password'
 	end
 end
