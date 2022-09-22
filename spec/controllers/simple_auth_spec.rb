@@ -33,6 +33,39 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 				end
 			end
 		end
+
+		describe 'POST reset_password' do
+			let(:user) { create :user }
+			let(:reset_password_params) do
+				{
+					password:,
+					password_confirmation:,
+					reset_password_token:
+				}
+			end
+
+			let(:reset_password_token) { user.send_reset_password_instructions }
+			let(:password) { 'n3wp455w0rd' }
+			let(:password_confirmation) { password }
+
+
+			context 'when the params are correct' do
+				it 'responds with a no content status' do
+					post :reset_password, params: reset_password_params
+					expect(response.status).to eq 204
+				end
+			end
+
+			%i[password password_confirmation reset_password_token].each do |param|
+				context "with empty #{param}" do
+					let(param) { '' }
+
+					it 'responds with an error' do
+						expect { post :reset_password, params: reset_password_params }.to raise_error ActionController::ParameterMissing
+					end
+				end
+			end
+		end
 	end
 
 	context 'when the subclass does not define either user_klass_name or user_attributes' do
