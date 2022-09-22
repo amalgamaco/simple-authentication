@@ -13,6 +13,12 @@ module SimpleAuthentication
 				)
 			end
 
+			def forgot_password
+				render_empty_response if SimpleAuthentication::Interactors::ForgotPassword.with(
+					user_email: params[:user_email], user_klass_name:
+				)
+			end
+
 		private
 
 			def user_klass_name

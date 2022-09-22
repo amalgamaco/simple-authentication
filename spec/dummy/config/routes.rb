@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
 
 	post 'empty' => 'empty#sign_up'
+	post 'empty/forgot_password' => 'empty#forgot_password'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
