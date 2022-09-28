@@ -7,14 +7,20 @@ module SimpleAuthentication
 				)
 			end
 
+			def delete
+				SimpleAuthentication::Interactors::DeleteUser.with(
+					user_klass_name:, user_id: current_user&.id
+				)
+			end
+
 			def reset_password
-				render_empty_response if SimpleAuthentication::Interactors::ResetPassword.with(
+				SimpleAuthentication::Interactors::ResetPassword.with(
 					user_klass_name:, reset_password_params:
 				)
 			end
 
 			def forgot_password
-				render_empty_response if SimpleAuthentication::Interactors::ForgotPassword.with(
+				SimpleAuthentication::Interactors::ForgotPassword.with(
 					user_email: params[:user_email], user_klass_name:
 				)
 			end
@@ -31,6 +37,10 @@ module SimpleAuthentication
 
 			def reset_password_params
 				raise 'subclass responsability'
+			end
+
+			def current_user
+				raise 'sublcass responsability'
 			end
 
 			def render_empty_response
