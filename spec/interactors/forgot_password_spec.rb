@@ -30,25 +30,19 @@ RSpec.describe SimpleAuthentication::Interactors::ForgotPassword do
 		context 'when it is empty' do
 			let(:user_email) {}
 
-			it 'returns an not found error' do
-				expect{ call_interactor }.to raise_error ActiveRecord::RecordNotFound
-			end
+			include_examples 'raises Error exception', ActiveRecord::RecordNotFound
 		end
 
 		context 'when it does not belong to an existing user' do
 			let(:user_email) { 'johnDoe@fakeEmail123.com' }
 
-			it 'returns an not found error' do
-				expect { call_interactor }.to raise_error ActiveRecord::RecordNotFound
-			end
+			include_examples 'raises Error exception', ActiveRecord::RecordNotFound
 		end
 	end
 
 	context 'when the given klass name is invalid' do
 		let(:user_klass_name) { 'cat' }
 
-		it 'returns an error i guess' do
-			expect { call_interactor }.to raise_error NameError
-		end
+		include_examples 'raises Error exception', NameError
 	end
 end

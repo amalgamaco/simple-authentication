@@ -8,6 +8,7 @@ require 'factory_bot_rails'
 
 require_relative '../spec/dummy/config/environment'
 require_relative '../spec/support/helpers'
+require_relative '../spec/shared_examples/for_interactors'
 require_relative '../spec/factories/users'
 
 
