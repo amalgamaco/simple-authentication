@@ -1,12 +1,12 @@
 module SimpleAuthentication
 	module Interactors
-		class ResetPassword
+		class ResetPassword < BaseInteractor
 			def self.with(user_klass_name:, reset_password_params:)
 				new(user_klass_name:, reset_password_params:).execute
 			end
 
 			def initialize(user_klass_name:, reset_password_params:)
-				@user_klass_name = user_klass_name
+				super
 				@reset_password_params = reset_password_params
 			end
 
@@ -25,10 +25,6 @@ module SimpleAuthentication
 							user_klass_instance.errors
 					)
 				end
-			end
-
-			def user_klass
-				@user_klass_name.camelize.constantize
 			end
 		end
 	end

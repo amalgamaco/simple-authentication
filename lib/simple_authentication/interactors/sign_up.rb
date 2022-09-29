@@ -1,13 +1,13 @@
 module SimpleAuthentication
 	module Interactors
-		class SignUp
+		class SignUp < BaseInteractor
 			def self.with(user_klass_name:, user_attributes:)
 				new(user_klass_name: user_klass_name, user_attributes: user_attributes).execute
 			end
 
 			def initialize(user_klass_name:, user_attributes:)
+				super
 				@user_attributes = user_attributes
-				@user_klass_name = user_klass_name
 			end
 
 			def execute
@@ -17,11 +17,7 @@ module SimpleAuthentication
 		private
 
 			def create_user
-				klass.create! @user_attributes
-			end
-
-			def klass
-				@user_klass_name.camelize.constantize
+				user_klass.create! @user_attributes
 			end
 		end
 	end

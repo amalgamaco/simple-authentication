@@ -1,7 +1,7 @@
 require 'rails'
 require 'active_support/dependencies'
-require "simple_authentication/version"
-require "simple_authentication/engine"
+require 'simple_authentication/version'
+require 'simple_authentication/engine'
 
 module SimpleAuthentication
 	module Controllers
@@ -13,7 +13,9 @@ module SimpleAuthentication
 	end
 
 	module Interactors
+		autoload :BaseInteractor, 'simple_authentication/interactors/base_interactor'
 		autoload :SignUp, 'simple_authentication/interactors/sign_up'
 		autoload :ResetPassword, 'simple_authentication/interactors/reset_password'
+		autoload :ForgotPassword, 'simple_authentication/interactors/forgot_password'
 	end
 end

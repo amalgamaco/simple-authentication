@@ -69,5 +69,13 @@ RSpec.describe SimpleAuthentication::Interactors::ResetPassword do
 				expect { call_interactor }.to raise_error SimpleAuthentication::Errors::UnprocessableError
 			end
 		end
+
+		context 'when the given klass name is invalid' do
+			let(:user_klass_name) { 'cat' }
+
+			it 'returns an error i guess' do
+				expect { call_interactor }.to raise_error NameError
+			end
+		end
 	end
 end
