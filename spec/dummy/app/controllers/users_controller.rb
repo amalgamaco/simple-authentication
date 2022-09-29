@@ -1,4 +1,5 @@
-class UsersController < SimpleAuthentication::Controllers::SimpleAuth
+class UsersController < ApplicationController
+	include SimpleAuthentication::Controllers::SimpleAuth
 	rescue_from ActiveRecord::RecordInvalid, with: :render_error
 
 	def render_error
@@ -22,5 +23,9 @@ private
 
 	def current_user
 		User.find doorkeeper_token.resource_owner_id rescue nil if doorkeeper_token
+	end
+
+	def forgot_password_params
+		params.permit(:email)
 	end
 end

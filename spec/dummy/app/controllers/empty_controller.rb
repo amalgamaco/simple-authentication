@@ -1,2 +1,3 @@
-class EmptyController < SimpleAuthentication::Controllers::SimpleAuth
+class EmptyController < ApplicationController
+	include SimpleAuthentication::Controllers::SimpleAuth
 end
