@@ -6,9 +6,11 @@ require 'devise'
 require 'doorkeeper'
 require 'factory_bot_rails'
 
-require_relative "../spec/dummy/config/environment"
-require_relative "../spec/support/helpers"
-require_relative "../spec/factories/users"
+require_relative '../spec/dummy/config/environment'
+require_relative '../spec/support/helpers'
+require_relative '../spec/factories/users'
+
+
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../spec/dummy/db/migrate", __dir__)]
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
