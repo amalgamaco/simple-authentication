@@ -14,4 +14,9 @@ private
 	def user_attributes
 		params.permit(:email, :password)
 	end
+
+	def reset_password_params
+		params.require(%i[password password_confirmation reset_password_token])
+		params.permit(:password, :password_confirmation, :reset_password_token)
+	end
 end
