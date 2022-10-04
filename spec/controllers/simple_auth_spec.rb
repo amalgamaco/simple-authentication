@@ -34,6 +34,27 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 			end
 		end
 
+		describe 'POST forgot_password' do
+			let(:user) { create :user }
+			let(:user_email) { user.email }
+			let(:params) { { user_email: } }
+
+			context 'when the params are correct' do
+				it 'responds with a no content status' do
+					post :forgot_password, params: params
+					expect(response.status).to eq 204
+				end
+			end
+
+			context 'when the email belongs to a non existing user' do
+				let(:user_email) { '1nv4lid3m4il@fakestreet123.co' }
+
+				it 'responds with a Not found error' do
+					expect { post :forgot_password, params: }.to raise_error ActiveRecord::RecordNotFound
+				end
+			end
+		end
+
 		describe 'POST reset_password' do
 			let(:user) { create :user }
 			let(:reset_password_params) do
@@ -68,11 +89,19 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 		end
 	end
 
-	context 'when the subclass does not define either user_klass_name or user_attributes' do
+	context 'when the subclass does not implements the require methods' do
 		describe EmptyController, type: :controller do
 			describe 'POST create' do
 				it 'responds with an error' do
 					expect { post :sign_up }.to raise_error RuntimeError
+				end
+			end
+
+			describe 'POST forgot_password' do
+				let(:params) { { user_email: 'mail123@mail.com' } }
+
+				it 'responds with an error' do
+					expect { post :forgot_password, params: params }.to raise_error RuntimeError
 				end
 			end
 		end
