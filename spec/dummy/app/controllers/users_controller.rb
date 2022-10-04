@@ -19,4 +19,8 @@ private
 		params.require(%i[password password_confirmation reset_password_token])
 		params.permit(:password, :password_confirmation, :reset_password_token)
 	end
+
+	def current_user
+		User.find doorkeeper_token.resource_owner_id rescue nil if doorkeeper_token
+	end
 end

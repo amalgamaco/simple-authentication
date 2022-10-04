@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
 	devise_scope :users do
 		post 'users' => 'users#sign_up'
+		delete 'users' => 'users#delete'
 		post 'users/forgot_password' => 'users#forgot_password'
 		post 'users/reset_password' => 'users#reset_password'
 	end

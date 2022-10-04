@@ -82,8 +82,28 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 					let(param) { '' }
 
 					it 'responds with an error' do
-						expect { post :reset_password, params: reset_password_params }.to raise_error ActionController::ParameterMissing
+						expect { post :reset_password, params: reset_password_params }
+								.to raise_error ActionController::ParameterMissing
 					end
+				end
+			end
+		end
+
+		describe 'DELETE delete' do
+			before { create_list :user, 10 }
+
+			context 'when authenticated' do
+				include_context 'when using doorkeeper'
+
+				it 'deletes the user successfully' do
+					delete :delete
+					expect(response.status).to eq 204
+				end
+			end
+
+			context 'without being authenticated' do
+				it 'fails to find a current user' do
+					expect { delete :delete }.to raise_error ActiveRecord::RecordNotFound
 				end
 			end
 		end
