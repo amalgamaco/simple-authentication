@@ -37,9 +37,7 @@ RSpec.describe SimpleAuthentication::Interactors::SignUp do
 		let(:duplicated_key) { duplicate_klass.email }
 		let(:email) { duplicate_klass.email }
 
-		it 'raises record invalid' do
-			expect { call_interactor }.to raise_exception ActiveRecord::RecordInvalid
-		end
+		include_examples 'raises Error exception', ActiveRecord::RecordInvalid
 	end
 
 	context 'with invalid params' do

@@ -16,6 +16,8 @@ Shoulda::Matchers.configure do |config|
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'support'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'shared_examples'))
+
 RSpec.configure do |config|
   config.include Helpers
 end

@@ -49,33 +49,25 @@ RSpec.describe SimpleAuthentication::Interactors::ResetPassword do
 		context 'when the password is invalid' do
 			let(:password) { 'invalid' }
 
-			it 'returns an UnprocessableError' do
-				expect { call_interactor }.to raise_error SimpleAuthentication::Errors::UnprocessableError
-			end
+			include_examples 'raises Error exception', SimpleAuthentication::Errors::UnprocessableError
 		end
 
 		context 'when the password confirmation mismatches' do
 			let(:password_confirmation) { 'i_mismatch' }
 
-			it 'returns an UnprocessableError' do
-				expect { call_interactor }.to raise_error SimpleAuthentication::Errors::UnprocessableError
-			end
+			include_examples 'raises Error exception', SimpleAuthentication::Errors::UnprocessableError
 		end
 
 		context 'when the token is invalid' do
 			let(:token) { 'invalidtokenorsmthiguess' }
 
-			it 'returns an UnprocessableError' do
-				expect { call_interactor }.to raise_error SimpleAuthentication::Errors::UnprocessableError
-			end
+			include_examples 'raises Error exception', SimpleAuthentication::Errors::UnprocessableError
 		end
 
 		context 'when the given klass name is invalid' do
 			let(:user_klass_name) { 'cat' }
 
-			it 'returns an error i guess' do
-				expect { call_interactor }.to raise_error NameError
-			end
+			include_examples 'raises Error exception', NameError
 		end
 	end
 end
