@@ -91,6 +91,39 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 			end
 		end
 
+		describe 'POST block' do
+			let(:blocked_user) { create :user }
+			let(:blocked_user_id) { blocked_user.id }
+			let(:block_user_params) { { blocked_user_id: } }
+
+			context 'when the params are correct' do
+				include_context 'when using doorkeeper'
+
+				it 'responds with an ok code' do
+					post :block, params: block_user_params
+					expect(response.status).to eq 204
+				end
+			end
+
+			context 'with empty blocked_user_id' do
+				include_context 'when using doorkeeper'
+
+				before { block_user_params[:blocked_user_id] = '' }
+
+				it 'responds with an error' do
+					post :block, params: block_user_params
+					expect(response.status).to eq 422
+				end
+			end
+
+			context 'without being authenticated' do
+				it 'responds with a 401' do
+					post :block, params: block_user_params
+					expect(response.status).to eq 401
+				end
+			end
+		end
+
 		describe 'DELETE delete' do
 			before { create_list :user, 10 }
 
@@ -105,7 +138,8 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 
 			context 'without being authenticated' do
 				it 'fails to find a current user' do
-					expect { delete :delete }.to raise_error ActiveRecord::RecordNotFound
+					delete :delete
+					expect(response.status).to eq 401
 				end
 			end
 		end
