@@ -6,7 +6,7 @@ RSpec.shared_examples 'Block user is successful' do
 	end
 
 	it 'creates the new block with the passed users' do
-		expect(call_interactor).to have_attributes(blocked_user_id:, blockee_id: current_user.id)
+		expect(call_interactor).to have_attributes(blocked_user_id:, blocker_id: current_user.id)
 	end
 end
 
@@ -15,7 +15,7 @@ RSpec.describe SimpleAuthentication::Interactors::BlockUser do
 	let(:blocked_user) { create :user }
 	let(:blocked_user_id) { blocked_user.id }
 	let(:block_relation_klass_name) { 'block' }
-	let(:blockee_user_id) { current_user.id }
+	let(:blocker_user_id) { current_user.id }
 
 	let(:block_user_params) do
 		{
@@ -37,7 +37,7 @@ RSpec.describe SimpleAuthentication::Interactors::BlockUser do
 	end
 
 	context 'when the blocked user is already blocked' do
-		before { create :block, blockee: current_user, blocked_user:}
+		before { create :block, blocker: current_user, blocked_user:}
 
 		include_examples 'raises Error exception', ActiveRecord::RecordInvalid
 	end
