@@ -36,6 +36,12 @@ module SimpleAuthentication
 				)
 			end
 
+			def unblock_user
+				SimpleAuthentication::Interactors::UnblockUser.with(
+					current_user:, unblock_user_params:
+				)
+			end
+
 		private
 
 			def current_controller
@@ -55,6 +61,10 @@ module SimpleAuthentication
 			end
 
 			def block_user_params
+				raise 'class responsability'
+			end
+
+			def unblock_user_params
 				raise 'class responsability'
 			end
 		end
