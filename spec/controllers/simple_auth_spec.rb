@@ -106,6 +106,16 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 				end
 			end
 
+			context 'when user tries to block himself' do
+				include_context 'when using doorkeeper'
+				let(:block_user_params) { { blocked_user_id: current_user.id } }
+
+				it 'responds with an error code' do
+					post :block, params: block_user_params
+					expect(response.status).to eq 422
+				end
+			end
+
 			context 'with empty blocked_user_id' do
 				include_context 'when using doorkeeper'
 
@@ -137,6 +147,16 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 				it 'responds with an ok code' do
 					post :unblock, params: unblock_user_params
 					expect(response.status).to eq 204
+				end
+			end
+
+			context 'when user tries to unblock himself' do
+				include_context 'when using doorkeeper'
+				let(:unblock_user_params) { { blocked_user_id: current_user.id } }
+
+				it 'responds with an error code' do
+					post :unblock, params: unblock_user_params
+					expect(response.status).to eq 422
 				end
 			end
 

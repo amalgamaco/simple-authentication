@@ -38,11 +38,17 @@ module SimpleAuthentication
 			end
 
 			def validate_user_cant_unblock_himself
-				return unless @blocked_user_id == @blocker_user_id
+				self_unblock_error if is_unblocking_himself
+			end
+
+			def self_unblock_error
 				raise SimpleAuthentication::Errors::UnprocessableError.new(
-						:invalid_record_attribute,
-						:unprocessable,
-					)
+						:invalid_record_attribute, :unprocessable
+				)
+			end
+
+			def is_unblocking_himself
+				@blocker_user_id == @blocked_user_id.to_i
 			end
 		end
 	end
