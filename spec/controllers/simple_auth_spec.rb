@@ -7,7 +7,7 @@ RSpec.shared_context 'with created klass_instance' do
 	end
 end
 
-RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller do
+RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 	describe UsersController, type: :controller do
 		describe 'POST create' do
 			let(:user) { build :user }
@@ -32,25 +32,28 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 					end
 				end
 			end
+
 		end
+
+
 
 		describe 'POST forgot_password' do
 			let(:user) { create :user }
-			let(:user_email) { user.email }
-			let(:params) { { user_email: } }
+			let(:email) { user.email }
+			let(:forgot_password_params) { { email: } }
 
 			context 'when the params are correct' do
 				it 'responds with a no content status' do
-					post :forgot_password, params: params
+					post :forgot_password, params: forgot_password_params
 					expect(response.status).to eq 204
 				end
 			end
 
 			context 'when the email belongs to a non existing user' do
-				let(:user_email) { '1nv4lid3m4il@fakestreet123.co' }
+				let(:email) { '1nv4lid3m4il@fakestreet123.co' }
 
 				it 'responds with a Not found error' do
-					expect { post :forgot_password, params: }.to raise_error ActiveRecord::RecordNotFound
+					expect { post :forgot_password, params: forgot_password_params }.to raise_error ActiveRecord::RecordNotFound
 				end
 			end
 		end
@@ -68,7 +71,6 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 			let(:reset_password_token) { user.send_reset_password_instructions }
 			let(:password) { 'n3wp455w0rd' }
 			let(:password_confirmation) { password }
-
 
 			context 'when the params are correct' do
 				it 'responds with a no content status' do
@@ -113,7 +115,7 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 		describe EmptyController, type: :controller do
 			describe 'POST create' do
 				it 'responds with an error' do
-					expect { post :sign_up }.to raise_error RuntimeError
+					expect { post :sign_up }.to raise_error NameError
 				end
 			end
 
@@ -121,7 +123,7 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth, type: :controller 
 				let(:params) { { user_email: 'mail123@mail.com' } }
 
 				it 'responds with an error' do
-					expect { post :forgot_password, params: params }.to raise_error RuntimeError
+					expect { post :forgot_password, params: }.to raise_error NameError
 				end
 			end
 		end

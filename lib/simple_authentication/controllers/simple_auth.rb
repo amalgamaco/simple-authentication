@@ -1,6 +1,11 @@
 module SimpleAuthentication
 	module Controllers
-		class SimpleAuth < ActionController::API
+		module SimpleAuth
+			delegate :current_user, to: :current_controller
+			delegate :user_attributes, to: :current_controller
+			delegate :reset_password_params, to: :current_controller
+			delegate :forgot_password_params, to: :current_controller
+
 			def sign_up
 				SimpleAuthentication::Interactors::SignUp.with(
 					user_klass_name:, user_attributes:
@@ -21,30 +26,18 @@ module SimpleAuthentication
 
 			def forgot_password
 				SimpleAuthentication::Interactors::ForgotPassword.with(
-					user_email: params[:user_email], user_klass_name:
+					user_email: forgot_password_params[:email], user_klass_name:
 				)
 			end
 
 		private
 
+			def current_controller
+				self.class
+			end
+
 			def user_klass_name
-				raise 'subclass responsability'
-			end
-
-			def user_attributes
-				raise 'subclass responsability'
-			end
-
-			def reset_password_params
-				raise 'subclass responsability'
-			end
-
-			def current_user
-				raise 'sublcass responsability'
-			end
-
-			def render_empty_response
-				render json: {}, adapter: :json, status: :no_content
+				self.class.name.gsub(/Controller$/, '').downcase
 			end
 		end
 	end
