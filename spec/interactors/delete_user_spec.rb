@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.describe SimpleAuthentication::Interactors::DeleteUser do
 	let(:user_klass_name) { 'user' }
 	let(:user_klass) { User }

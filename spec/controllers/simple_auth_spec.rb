@@ -52,8 +52,9 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 			context 'when the email belongs to a non existing user' do
 				let(:email) { '1nv4lid3m4il@fakestreet123.co' }
 
-				it 'responds with a Not found error' do
-					expect { post :forgot_password, params: forgot_password_params }.to raise_error ActiveRecord::RecordNotFound
+				it 'responds with a not found error code' do
+					post :forgot_password, params: forgot_password_params
+					expect(response.status).to eq 404
 				end
 			end
 		end
@@ -119,6 +120,40 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 			context 'without being authenticated' do
 				it 'responds with a 401' do
 					post :block, params: block_user_params
+					expect(response.status).to eq 401
+				end
+			end
+		end
+
+		describe 'POST unblock' do
+			let(:blocked_user) { create :user }
+			let(:blocked_user_id) { blocked_user.id }
+			let(:unblock_user_params) { { blocked_user_id: } }
+
+			context 'when the params are correct' do
+				include_context 'when using doorkeeper'
+
+				before { create :block, blocker: current_user, blocked_user: }
+				it 'responds with an ok code' do
+					post :unblock, params: unblock_user_params
+					expect(response.status).to eq 204
+				end
+			end
+
+			context 'with empty blocked_user_id' do
+				include_context 'when using doorkeeper'
+
+				before { unblock_user_params[:blocked_user_id] = '' }
+
+				it 'responds with an not found error code' do
+					post :unblock, params: unblock_user_params
+					expect(response.status).to eq 404
+				end
+			end
+
+			context 'without being authenticated' do
+				it 'responds with a 401' do
+					post :unblock, params: unblock_user_params
 					expect(response.status).to eq 401
 				end
 			end
