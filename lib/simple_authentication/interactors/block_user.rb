@@ -1,21 +1,22 @@
 module SimpleAuthentication
 	module Interactors
 		class BlockUser
-			def self.with(current_user:, block_user_params:)
+			def self.with(current_user:, blocked_user_id:, block_relation_klass_name:)
 				new(
 					current_user:,
-					block_user_params:
+					blocked_user_id:,
+					block_relation_klass_name:
 				).execute
 			end
 
-			def initialize(current_user:, block_user_params:)
+			def initialize(current_user:, blocked_user_id:, block_relation_klass_name:)
 				@blocker_user_id = current_user&.id
-				@blocked_user_id = block_user_params[:blocked_user_id].to_i
-				@block_relation_klass_name = block_user_params[:block_relation_klass_name]
+				@blocked_user_id = blocked_user_id.to_i
+				@block_relation_klass_name = block_relation_klass_name
 			end
 
 			def execute
-				validate_user_cant_block_himself
+				validate_user_is_not_blocking_himself
 				block_user
 			end
 
@@ -32,7 +33,7 @@ module SimpleAuthentication
 				@block_relation_klass_name.camelize.constantize
 			end
 
-			def validate_user_cant_block_himself
+			def validate_user_is_not_blocking_himself
 				self_block_error if is_blocking_himself
 			end
 

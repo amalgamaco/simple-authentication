@@ -17,14 +17,7 @@ RSpec.describe SimpleAuthentication::Interactors::UnblockUser do
 	let(:block_relation_klass_name) { 'block' }
 	let(:blocker_user_id) { current_user.id }
 
-	let(:unblock_user_params) do
-		{
-			blocked_user_id:,
-			block_relation_klass_name:
-		}
-	end
-
-	let(:call_interactor) { described_class.with(current_user:, unblock_user_params:) }
+	let(:call_interactor) { described_class.with(current_user:, blocked_user_id:, block_relation_klass_name:) }
 
 	context 'with correct params' do
 		before { create :block, blocker: current_user, blocked_user: }

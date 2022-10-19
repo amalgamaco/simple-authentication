@@ -17,14 +17,7 @@ RSpec.describe SimpleAuthentication::Interactors::BlockUser do
 	let(:block_relation_klass_name) { 'block' }
 	let(:blocker_user_id) { current_user.id }
 
-	let(:block_user_params) do
-		{
-			blocked_user_id:,
-			block_relation_klass_name:
-		}
-	end
-
-	let(:call_interactor) { described_class.with(current_user:, block_user_params:) }
+	let(:call_interactor) { described_class.with(current_user:, blocked_user_id:, block_relation_klass_name:) }
 
 	context 'with correct params' do
 		include_examples 'Block user is successful'
@@ -37,7 +30,7 @@ RSpec.describe SimpleAuthentication::Interactors::BlockUser do
 	end
 
 	context 'when the blocked user is already blocked' do
-		before { create :block, blocker: current_user, blocked_user:}
+		before { create :block, blocker: current_user, blocked_user: }
 
 		include_examples 'raises Error exception', ActiveRecord::RecordInvalid
 	end

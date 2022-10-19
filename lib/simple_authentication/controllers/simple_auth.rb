@@ -32,13 +32,17 @@ module SimpleAuthentication
 
 			def block_user
 				SimpleAuthentication::Interactors::BlockUser.with(
-					current_user:, block_user_params:
+					current_user:,
+					blocked_user_id: block_user_params[:blocked_user_id],
+					block_relation_klass_name: block_user_params[:block_relation_klass_name]
 				)
 			end
 
 			def unblock_user
 				SimpleAuthentication::Interactors::UnblockUser.with(
-					current_user:, unblock_user_params:
+					current_user:,
+					blocked_user_id: block_user_params[:blocked_user_id],
+					block_relation_klass_name: block_user_params[:block_relation_klass_name]
 				)
 			end
 
