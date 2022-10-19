@@ -1,6 +1,6 @@
 FactoryBot.define do
 	factory :block do
-		blockee { build :user }
+		blocker { build :user }
 		blocked_user { build :user }
 	end
 end

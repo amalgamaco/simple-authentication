@@ -5,10 +5,10 @@ class User < ApplicationRecord
            :recoverable, :rememberable, :validatable
 	has_many \
 		:given_blocks,
-		foreign_key: 'blockee_id',
+		foreign_key: 'blocker_id',
 		class_name: 'Block',
 		dependent: :delete_all,
-		inverse_of: :blockee
+		inverse_of: :blocker
 
 	has_many :blocked_users, through: :given_blocks, source: :blocked_user
 
@@ -19,6 +19,6 @@ class User < ApplicationRecord
 		dependent: :delete_all,
 		inverse_of: :blocked_user
 
-	has_many :blockee_users, through: :received_blocks, source: :blockee
+	has_many :blocker_users, through: :received_blocks, source: :blocker
 
 end

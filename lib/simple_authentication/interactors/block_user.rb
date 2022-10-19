@@ -9,7 +9,7 @@ module SimpleAuthentication
 			end
 
 			def initialize(current_user:, block_user_params:)
-				@blockee_user_id = current_user&.id
+				@blocker_user_id = current_user&.id
 				@blocked_user_id = block_user_params[:blocked_user_id]
 				@block_relation_klass_name = block_user_params[:block_relation_klass_name]
 			end
@@ -23,7 +23,7 @@ module SimpleAuthentication
 
 			def block_user
 				block_relation_klass.create!(
-					blockee_id: @blockee_user_id,
+					blocker_id: @blocker_user_id,
 					blocked_user_id: @blocked_user_id
 				)
 			end
@@ -33,7 +33,7 @@ module SimpleAuthentication
 			end
 
 			def validate_user_cant_block_himself
-				return unless @blocked_user_id == @blockee_user_id
+				return unless @blocked_user_id == @blocker_user_id
 				raise SimpleAuthentication::Errors::UnprocessableError.new(
 						:invalid_record_attribute,
 						:unprocessable,
