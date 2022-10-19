@@ -30,6 +30,12 @@ module SimpleAuthentication
 				)
 			end
 
+			def block_user
+				SimpleAuthentication::Interactors::BlockUser.with(
+					current_user:, block_user_params:
+				)
+			end
+
 		private
 
 			def current_controller
@@ -46,6 +52,10 @@ module SimpleAuthentication
 
 			def delete_user_callback
 				nil
+			end
+
+			def block_user_params
+				raise 'class responsability'
 			end
 		end
 	end

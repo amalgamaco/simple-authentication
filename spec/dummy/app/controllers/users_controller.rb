@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 	include SimpleAuthentication::Controllers::SimpleAuth
 	rescue_from ActiveRecord::RecordInvalid, with: :render_error
+	before_action :doorkeeper_authorize!
+	skip_before_action :doorkeeper_authorize!, only: %i[sign_up forgot_password forgot_pass reset_password current_user]
 
 	def render_error
 		render(status: '422')
@@ -8,6 +10,10 @@ class UsersController < ApplicationController
 
 	def forgot_pass
 		render forgot_password
+	end
+
+	def block
+		block_user
 	end
 
 private
@@ -31,5 +37,9 @@ private
 
 	def forgot_password_params
 		params.permit(:email)
+	end
+
+	def block_user_params
+		{ blocked_user_id: params[:blocked_user_id], block_relation_klass_name: 'block' }
 	end
 end

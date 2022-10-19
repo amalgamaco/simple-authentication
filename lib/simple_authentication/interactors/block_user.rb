@@ -9,7 +9,7 @@ module SimpleAuthentication
 			end
 
 			def initialize(current_user:, block_user_params:)
-				@blockee_user_id = current_user.id
+				@blockee_user_id = current_user&.id
 				@blocked_user_id = block_user_params[:blocked_user_id]
 				@block_relation_klass_name = block_user_params[:block_relation_klass_name]
 			end
