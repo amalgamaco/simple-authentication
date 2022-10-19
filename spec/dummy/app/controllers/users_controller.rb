@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	include SimpleAuthentication::Controllers::SimpleAuth
 	rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_error
+	rescue_from SimpleAuthentication::Errors::UnprocessableError, with: :render_invalid_error
 	rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 	before_action :doorkeeper_authorize!
 	skip_before_action :doorkeeper_authorize!, only: %i[sign_up forgot_password forgot_pass reset_password current_user]
