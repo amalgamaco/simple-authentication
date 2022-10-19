@@ -14,7 +14,7 @@ module SimpleAuthentication
 
 			def delete
 				SimpleAuthentication::Interactors::DeleteUser.with(
-					user_klass_name:, user_id: current_user&.id
+					user_klass_name:, user_id: current_user&.id, delete_user_callback:
 				)
 			end
 
@@ -38,6 +38,14 @@ module SimpleAuthentication
 
 			def user_klass_name
 				self.class.name.gsub(/Controller$/, '').downcase
+			end
+
+			def delete_user_params
+				nil
+			end
+
+			def delete_user_callback
+				nil
 			end
 		end
 	end

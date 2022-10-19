@@ -6,6 +6,10 @@ class UsersController < ApplicationController
 		render(status: '422')
 	end
 
+	def forgot_pass
+		render forgot_password
+	end
+
 private
 
 	def user_klass_name
