@@ -10,25 +10,24 @@ module SimpleAuthentication
 			end
 
 			def initialize(current_user:, blocked_user_id:, block_relation_klass_name:)
-				@blocker_user_id = current_user&.id
+				@blocker_user_id = current_user.id
 				@blocked_user_id = blocked_user_id.to_i
 				@block_relation_klass_name = block_relation_klass_name
 			end
 
 			def execute
 				validate_user_is_not_unblocking_himself
-				find_block
 				unblock_user
 			end
 
 		private
 
 			def unblock_user
-				block_relation_klass.destroy(@block.id)
+				block_relation_klass.destroy(user_block.id)
 			end
 
-			def find_block
-					@block = block_relation_klass.find_by!(
+			def user_block
+					block_relation_klass.find_by!(
 						blocker_id: @blocker_user_id,
 						blocked_user_id: @blocked_user_id
 					)
@@ -39,7 +38,7 @@ module SimpleAuthentication
 			end
 
 			def validate_user_is_not_unblocking_himself
-				self_unblock_error if is_unblocking_himself
+				self_unblock_error if is_unblocking_himself?
 			end
 
 			def self_unblock_error
@@ -48,8 +47,8 @@ module SimpleAuthentication
 				)
 			end
 
-			def is_unblocking_himself
-				@blocker_user_id == @blocked_user_id.to_i
+			def is_unblocking_himself?
+				@blocker_user_id == @blocked_user_id
 			end
 		end
 	end
