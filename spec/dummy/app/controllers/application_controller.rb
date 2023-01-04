@@ -1,9 +1,15 @@
 class ApplicationController < ActionController::API
 	before_action :doorkeeper_authorize!
 
-	protected
+protected
 
 	def current_user
-		User.find doorkeeper_token.resource_owner_id rescue nil if doorkeeper_token
+		return unless doorkeeper_token
+
+		begin
+			User.find doorkeeper_token.resource_owner_id
+		rescue StandardError
+			nil
+		end
 	end
 end

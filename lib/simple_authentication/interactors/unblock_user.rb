@@ -27,10 +27,10 @@ module SimpleAuthentication
 			end
 
 			def user_block
-					block_relation_klass.find_by!(
-						blocker_id: @blocker_user_id,
-						blocked_user_id: @blocked_user_id
-					)
+				block_relation_klass.find_by!(
+					blocker_id: @blocker_user_id,
+					blocked_user_id: @blocked_user_id
+				)
 			end
 
 			def block_relation_klass
@@ -43,7 +43,7 @@ module SimpleAuthentication
 
 			def self_unblock_error
 				raise SimpleAuthentication::Errors::UnprocessableError.new(
-						:invalid_record_attribute, :unprocessable
+					:invalid_record_attribute, :unprocessable
 				)
 			end
 

@@ -4,8 +4,8 @@ require 'rails_helper'
 RSpec.shared_context 'stub reset_password_by_token for user class' do
 	before do
 		allow(user_klass_instance.class)
-				.to receive(:reset_password_by_token)
-				.and_return(user_klass_instance)
+			.to receive(:reset_password_by_token)
+			.and_return(user_klass_instance)
 	end
 end
 
@@ -14,6 +14,7 @@ RSpec.shared_context 'stub errors for user instance' do
 		user_klass_instance.errors.add(:invalid_param)
 	end
 end
+
 RSpec.describe SimpleAuthentication::Interactors::ResetPassword do
 	let(:user_klass_instance) { create :user }
 	let(:user_klass_name) { 'user' }
@@ -38,8 +39,8 @@ RSpec.describe SimpleAuthentication::Interactors::ResetPassword do
 		it 'calls the reset_password_by_token moethod of the user class' do
 			call_interactor
 			expect(user_klass_instance.class)
-					.to have_received(:reset_password_by_token)
-					.with(reset_password_params)
+				.to have_received(:reset_password_by_token)
+				.with(reset_password_params)
 		end
 	end
 

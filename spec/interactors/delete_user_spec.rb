@@ -26,9 +26,9 @@ RSpec.describe SimpleAuthentication::Interactors::DeleteUser do
 				email_of_deleted_user = nil
 				delete_user_callback = proc { |deleted_user| email_of_deleted_user = deleted_user.email }
 
-				described_class.with( user_klass_name:, user_id:, delete_user_callback:)
+				described_class.with(user_klass_name:, user_id:, delete_user_callback:)
 
-				expect( email_of_deleted_user ).to eq user_to_delete.email
+				expect(email_of_deleted_user).to eq user_to_delete.email
 			end
 		end
 	end

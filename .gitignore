@@ -8,6 +8,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+/reports/
+.scannerwork/
 
 # rspec failure tracking
 .rspec_status

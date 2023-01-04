@@ -2,7 +2,7 @@ class User < ApplicationRecord
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 	devise :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :validatable
+								:recoverable, :rememberable, :validatable
 	has_many \
 		:given_blocks,
 		foreign_key: 'blocker_id',
@@ -20,5 +20,4 @@ class User < ApplicationRecord
 		inverse_of: :blocked_user
 
 	has_many :blocker_users, through: :received_blocks, source: :blocker
-
 end

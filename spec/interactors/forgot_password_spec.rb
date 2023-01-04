@@ -1,13 +1,15 @@
 require 'spec_helper'
 require 'rails_helper'
 
+# rubocop:disable RSpec/AnyInstance
 RSpec.shared_context 'when user_klass_instance sends an email' do
 	before do
 		allow_any_instance_of(user_klass_instance.class)
-				.to receive(:send_reset_password_instructions)
-				.and_return(user_klass_instance)
+			.to receive(:send_reset_password_instructions)
+			.and_return(user_klass_instance)
 	end
 end
+# rubocop:enable RSpec/AnyInstance
 
 RSpec.describe SimpleAuthentication::Interactors::ForgotPassword do
 	let(:user_klass_name) { 'user' }

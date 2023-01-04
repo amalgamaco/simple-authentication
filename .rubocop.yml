@@ -10,12 +10,12 @@ AllCops:
   DisplayStyleGuide: true
   ExtraDetails: true
   DefaultFormatter: html
+  TargetRubyVersion: 3.1.0
   Exclude:
      - bin/**/*
-     - db/**/*
      - vendor/**/*
      - tmp/**/*
-     - config/**/*
+     - spec/dummy/db/**/*
      - Gemfile*
      - .simplecov
      - spec/swagger_helper.rb
@@ -25,25 +25,26 @@ Layout/LineLength:
   Enabled: true
   Max: 100
 
+# Indentation
 Layout/IndentationStyle:
   Enabled: true
   EnforcedStyle: tabs
 
+Layout/IndentationWidth:
+  Enabled: true
+  Width: 1
+
+# Layout
 Layout/CommentIndentation:
-  Enabled: false
+  Enabled: true
+  AllowForAlignment: true
 
 Layout/HashAlignment:
   Enabled: true
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
-
-Layout/IndentationWidth:
-  Enabled: false
 
 Layout/FirstParameterIndentation:
   Enabled: true
@@ -90,24 +91,36 @@ Layout/CaseIndentation:
   Enabled: true
   EnforcedStyle: end
 
+# Style
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/AutoResourceCleanup:
   Enabled: true
 
 Style/LambdaCall:
   Enabled: true
 
-RSpec/ExampleWording:
-  Enabled: true
-
 Style/Documentation:
   Enabled: false
 
+# Rails
+Rails/FilePath:
+   EnforcedStyle: arguments
+
+# RSpec
 RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/FilePath:
   Enabled: false
 
 RSpec/NestedGroups:
   Enabled: true
   Max: 4
+
+RSpec/ExampleWording:
+  Enabled: true
 
 RSpec/ContextWording:
   Enabled: true
@@ -124,6 +137,7 @@ RSpec/ContextWording:
     - patch
     - swagger
     - and
+    - stub
 
 Metrics/BlockLength:
   Enabled: true
