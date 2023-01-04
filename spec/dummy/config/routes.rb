@@ -15,7 +15,6 @@ Rails.application.routes.draw do
 		post 'users/reset_password' => 'users#reset_password'
 	end
 
-
 	post 'empty' => 'empty#sign_up'
 	post 'empty/forgot_password' => 'empty#forgot_password'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

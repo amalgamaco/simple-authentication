@@ -4,7 +4,7 @@ RSpec.shared_context 'when using doorkeeper' do
 
 	before do
 		allow(token).to receive(:acceptable?).and_return(true)
+		allow(token).to receive(:resource_owner_id).and_return(current_user.id)
 		allow(controller).to receive(:doorkeeper_token) { token }
-		allow(controller).to receive(:current_user) { current_user }
 	end
 end

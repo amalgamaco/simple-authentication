@@ -10,6 +10,7 @@ module SimpleAuthentication
 
 	module Errors
 		autoload :UnprocessableError, 'simple_authentication/errors/unprocessable_error'
+		autoload :MethodRequiredError, 'simple_authentication/errors/method_required_error'
 	end
 
 	module Interactors
