@@ -1,10 +1,12 @@
 module SimpleAuthentication
 	module Controllers
 		module SimpleAuth
-			delegate :current_user, to: :current_controller
-			delegate :user_attributes, to: :current_controller
-			delegate :reset_password_params, to: :current_controller
-			delegate :forgot_password_params, to: :current_controller
+			include SimpleAuthentication::Errors
+
+			REQUIRED_METHODS = [
+				:current_user, :user_attributes, :reset_password_params,
+				:forgot_password_params, :block_user_params, :unblock_user_params
+			]
 
 			def sign_up
 				SimpleAuthentication::Interactors::SignUp.with(
@@ -48,10 +50,6 @@ module SimpleAuthentication
 
 		private
 
-			def current_controller
-				self.class
-			end
-
 			def user_klass_name
 				self.class.name.gsub(/Controller$/, '').downcase
 			end
@@ -64,13 +62,10 @@ module SimpleAuthentication
 				nil
 			end
 
-			def block_user_params
-				raise 'class responsability'
-			end
-
-			def unblock_user_params
-				raise 'class responsability'
-			end
+			def method_missing(method, *args, &block)
+				raise MethodRequiredError.new(method, self.class) if REQUIRED_METHODS.include? method
+				super
+			 end
 		end
 	end
 end

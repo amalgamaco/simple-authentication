@@ -35,8 +35,6 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 
 		end
 
-
-
 		describe 'POST forgot_password' do
 			let(:user) { create :user }
 			let(:email) { user.email }
@@ -204,7 +202,9 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 		describe EmptyController, type: :controller do
 			describe 'POST create' do
 				it 'responds with an error' do
-					expect { post :sign_up }.to raise_error NameError
+					expect do
+						post :sign_up
+					end.to raise_error SimpleAuthentication::Errors::MethodRequiredError
 				end
 			end
 
@@ -212,7 +212,9 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 				let(:params) { { user_email: 'mail123@mail.com' } }
 
 				it 'responds with an error' do
-					expect { post :forgot_password, params: }.to raise_error NameError
+					expect do
+						post :forgot_password, params:
+					end.to raise_error SimpleAuthentication::Errors::MethodRequiredError
 				end
 			end
 		end
