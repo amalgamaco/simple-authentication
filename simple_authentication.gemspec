@@ -5,18 +5,21 @@ Gem::Specification.new do |spec|
 	spec.version     = SimpleAuthentication::VERSION
 	spec.authors     = ['luca']
 	spec.email       = ['lucagiabbani@amalgama.co']
-	spec.homepage    = 'https://git.amalgama.co/'
-	spec.summary     = 'Summary of SimpleAuthentication.'
-	spec.description = 'Description of SimpleAuthentication.'
+	spec.homepage    = 'https://git.amalgama.co/amalgama/packages/gems/simple-authentication'
+	spec.summary     = 'Abstracts user account authorization logic. '
+	spec.description = <<-HEREDOC
+		Abstracts user account authorization logic such as: account creation, blocking / unblocking an account,
+		password recovery, etc.
+	HEREDOC
 	spec.required_ruby_version = '>= 3.1.0'
 
 	# Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
 	# to allow pushing to a single host or delete this section to allow pushing to any host.
-	spec.metadata['allowed_push_host'] = 'TODO: Set to http://mygemserver.com'
+	spec.metadata['allowed_push_host'] = 'https://git.amalgama.co'
 
 	spec.metadata['homepage_uri'] = spec.homepage
-	spec.metadata['source_code_uri'] = 'https://git.amalgama.co/'
-	spec.metadata['changelog_uri'] = 'https://git.amalgama.co/'
+	spec.metadata['source_code_uri'] = 'https://git.amalgama.co/amalgama/packages/gems/simple-authentication'
+	spec.metadata['changelog_uri'] = 'https://git.amalgama.co/amalgama/packages/gems/simple-authentication/CHANGELOG.md'
 
 	spec.files = Dir.chdir(File.expand_path(__dir__)) do
 		Dir['{app,config,db,lib}/**/*', 'Rakefile', 'README.md']

@@ -1,6 +1,6 @@
 # SimpleAuthentication
 
-SimpleAuthentication es una gema que se encarga de facilitar y abstraer la logica involucrada en los procesos de autorizacion ( sign_up, login ,reset password,etc...). Sigue en desarrollo, pero al momento de escribir este README , la funcionalidad de el sign_up esta disponible
+SimpleAuthentication es una gema que se encarga de facilitar y abstraer la logica involucrada en los procesos de autorizacion ( sign_up, login ,reset password,etc...).
 
 ## Como usar esta gema
 Para usar esta gema, simplemente hay que saber como funcionan las distintas partes de la misma, que queramos usar. Las voy a describir a continuacion:
@@ -37,7 +37,7 @@ Tenemos que correr:
 ```sh
      gem install json
      bundle install
-     cd spec/dummy && bundle exec rake db:create db:migrate db:seed
+     cd spec/dummy
      RAILS_ENV=test bin/rails db:create db:migrate
      cd ../../
 ```
