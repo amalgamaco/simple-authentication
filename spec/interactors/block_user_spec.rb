@@ -17,7 +17,9 @@ RSpec.describe SimpleAuthentication::Interactors::BlockUser do
 	let(:block_relation_klass_name) { 'block' }
 	let(:blocker_user_id) { current_user.id }
 
-	let(:call_interactor) { described_class.with(current_user:, blocked_user_id:, block_relation_klass_name:) }
+	let(:call_interactor) do
+		described_class.with(current_user:, blocked_user_id:, block_relation_klass_name:)
+	end
 
 	context 'with correct params' do
 		include_examples 'Block user is successful'

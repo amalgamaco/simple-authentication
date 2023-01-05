@@ -3,10 +3,10 @@ module SimpleAuthentication
 		module SimpleAuth
 			include SimpleAuthentication::Errors
 
-			REQUIRED_METHODS = [
-				:current_user, :user_attributes, :reset_password_params,
-				:forgot_password_params, :block_user_params, :unblock_user_params
-			]
+			REQUIRED_METHODS = %i[
+				current_user user_attributes reset_password_params
+				forgot_password_params block_user_params unblock_user_params
+			].freeze
 
 			def sign_up
 				SimpleAuthentication::Interactors::SignUp.with(
@@ -64,8 +64,15 @@ module SimpleAuthentication
 
 			def method_missing(method, *args, &block)
 				raise MethodRequiredError.new(method, self.class) if REQUIRED_METHODS.include? method
+
 				super
-			 end
+			end
+
+			# Not really necessary in this case but fixes rubocop warning
+			# Ref: https://thoughtbot.com/blog/always-define-respond-to-missing-when-overriding
+			def respond_to_missing?(method_name, include_private = false)
+				super
+			end
 		end
 	end
 end

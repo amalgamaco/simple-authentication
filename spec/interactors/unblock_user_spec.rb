@@ -17,7 +17,9 @@ RSpec.describe SimpleAuthentication::Interactors::UnblockUser do
 	let(:block_relation_klass_name) { 'block' }
 	let(:blocker_user_id) { current_user.id }
 
-	let(:call_interactor) { described_class.with(current_user:, blocked_user_id:, block_relation_klass_name:) }
+	let(:call_interactor) do
+		described_class.with(current_user:, blocked_user_id:, block_relation_klass_name:)
+	end
 
 	context 'with correct params' do
 		before { create :block, blocker: current_user, blocked_user: }
@@ -32,7 +34,6 @@ RSpec.describe SimpleAuthentication::Interactors::UnblockUser do
 	end
 
 	context 'when the blocked user is not blocked' do
-
 		include_examples 'raises Error exception', ActiveRecord::RecordNotFound
 	end
 end

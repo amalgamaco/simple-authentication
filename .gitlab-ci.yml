@@ -1,18 +1,76 @@
 image: ruby:3.1.2
+
 stages:
+  - lint
   - test
+  - sonar
+
 .base_setup:
+  variables:
+    RAILS_ENV: "test"
   before_script:
     - gem install json
     - bundle install
     - cd spec/dummy
-    - RAILS_ENV=test bin/rails db:create db:migrate db:seed
+    - bin/rails db:create db:migrate db:seed
     - cd ../../
 
+# ===============================================
+# Lint
+# ===============================================
+run_linter:
+  stage: lint
+  extends: .base_setup
+  script:
+    - bundle exec rubocop --format progress --format html -oreports/lint.html --format json -oreports/rubocop-result.json
+  artifacts:
+    paths:
+      - reports/
+  tags:
+    - docker
+
+# ===============================================
+# Test
+# ===============================================
 run_tests:
   stage: test
   extends: .base_setup
+  variables:
+    COVERAGE: "YES"
   script:
-    - bundle exec rspec
+    - bundle exec rspec --format progress --format RspecJunitFormatter --out reports/rspec.xml --format html -oreports/rspec.html
   tags:
     - docker
+  artifacts:
+    paths:
+      - reports/
+    reports:
+      junit: reports/rspec.xml
+      cobertura: reports/coverage/coverage.xml
+
+# ===============================================
+# Sonar
+# ===============================================
+upload_to_sonar:
+  stage: sonar
+  image:
+      name: sonarsource/sonar-scanner-cli
+      entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  before_script: []
+  script:
+    - sonar-scanner
+  allow_failure: true
+  tags:
+      - docker
+  dependencies:
+      - run_linter
+      - run_tests
+  only:
+      - main

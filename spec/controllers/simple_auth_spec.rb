@@ -32,7 +32,6 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 					end
 				end
 			end
-
 		end
 
 		describe 'POST forgot_password' do
@@ -84,7 +83,7 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 
 					it 'responds with an error' do
 						expect { post :reset_password, params: reset_password_params }
-								.to raise_error ActionController::ParameterMissing
+							.to raise_error ActionController::ParameterMissing
 					end
 				end
 			end
@@ -142,6 +141,7 @@ RSpec.describe SimpleAuthentication::Controllers::SimpleAuth do
 				include_context 'when using doorkeeper'
 
 				before { create :block, blocker: current_user, blocked_user: }
+
 				it 'responds with an ok code' do
 					post :unblock, params: unblock_user_params
 					expect(response.status).to eq 204

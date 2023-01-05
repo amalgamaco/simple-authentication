@@ -2,7 +2,7 @@ module SimpleAuthentication
 	module Interactors
 		class SignUp < BaseInteractor
 			def self.with(user_klass_name:, user_attributes:)
-				new(user_klass_name: user_klass_name, user_attributes: user_attributes).execute
+				new(user_klass_name:, user_attributes:).execute
 			end
 
 			def initialize(user_klass_name:, user_attributes:)

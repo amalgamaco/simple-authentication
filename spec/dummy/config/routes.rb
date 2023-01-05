@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-	use_doorkeeper :scope => 'v1/oauth' do
+	use_doorkeeper scope: 'v1/oauth' do
 		skip_controllers :authorizations, :applications, :authorized_applications
 	end
 
-	devise_for :users, skip: [:confirmations, :registrations, :unlocks]
+	devise_for :users, skip: %i[confirmations registrations unlocks]
 
 	devise_scope :users do
 		post 'users' => 'users#sign_up'
@@ -17,8 +17,8 @@ Rails.application.routes.draw do
 
 	post 'empty' => 'empty#sign_up'
 	post 'empty/forgot_password' => 'empty#forgot_password'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+	# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+	# Defines the root path route ("/")
+	# root "articles#index"
 end
