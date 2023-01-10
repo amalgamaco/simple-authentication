@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
 	spec.homepage    = 'https://git.amalgama.co/amalgama/packages/gems/simple-authentication'
 	spec.summary     = 'Abstracts user account authorization logic. '
 	spec.description = <<-HEREDOC
-		Abstracts user account authorization logic such as: account creation, blocking / unblocking an account,
-		password recovery, etc.
+		Abstracts user account authorization logic such as: account creation, password recovery, etc.
 	HEREDOC
 	spec.required_ruby_version = '>= 3.1.0'
 
