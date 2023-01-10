@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_authentication (0.2.0)
+    simple_authentication (0.3.0)
       bundler
       openssl
       rails (>= 7.0.3.1)
