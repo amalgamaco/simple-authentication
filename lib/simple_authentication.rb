@@ -17,8 +17,6 @@ module SimpleAuthentication
 		autoload :BaseInteractor, 'simple_authentication/interactors/base_interactor'
 		autoload :SignUp, 'simple_authentication/interactors/sign_up'
 		autoload :DeleteUser, 'simple_authentication/interactors/delete_user'
-		autoload :BlockUser, 'simple_authentication/interactors/block_user'
-		autoload :UnblockUser, 'simple_authentication/interactors/unblock_user'
 		autoload :ResetPassword, 'simple_authentication/interactors/reset_password'
 		autoload :ForgotPassword, 'simple_authentication/interactors/forgot_password'
 	end

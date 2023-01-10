@@ -5,7 +5,7 @@ module SimpleAuthentication
 
 			REQUIRED_METHODS = %i[
 				current_user user_attributes reset_password_params
-				forgot_password_params block_user_params unblock_user_params
+				forgot_password_params
 			].freeze
 
 			def sign_up
@@ -29,22 +29,6 @@ module SimpleAuthentication
 			def forgot_password
 				SimpleAuthentication::Interactors::ForgotPassword.with(
 					user_email: forgot_password_params[:email], user_klass_name:
-				)
-			end
-
-			def block_user
-				SimpleAuthentication::Interactors::BlockUser.with(
-					current_user:,
-					blocked_user_id: block_user_params[:blocked_user_id],
-					block_relation_klass_name: block_user_params[:block_relation_klass_name]
-				)
-			end
-
-			def unblock_user
-				SimpleAuthentication::Interactors::UnblockUser.with(
-					current_user:,
-					blocked_user_id: block_user_params[:blocked_user_id],
-					block_relation_klass_name: block_user_params[:block_relation_klass_name]
 				)
 			end
 
