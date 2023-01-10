@@ -41,7 +41,6 @@ require_relative '../spec/support/helpers'
 require_relative '../spec/shared_examples/for_interactors'
 require_relative '../spec/shared_contexts/for_controllers'
 require_relative '../spec/factories/users'
-require_relative '../spec/factories/block'
 
 ActiveRecord::Migrator.migrations_paths = [File.expand_path('../spec/dummy/db/migrate', __dir__)]
 

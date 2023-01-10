@@ -18,14 +18,6 @@ class UsersController < ApplicationController
 		render forgot_password
 	end
 
-	def block
-		block_user
-	end
-
-	def unblock
-		unblock_user
-	end
-
 private
 
 	def user_klass_name
@@ -43,13 +35,5 @@ private
 
 	def forgot_password_params
 		params.permit(:email)
-	end
-
-	def block_user_params
-		{ blocked_user_id: params[:blocked_user_id], block_relation_klass_name: 'block' }
-	end
-
-	def unblock_user_params
-		{ blocked_user_id: params[:blocked_user_id], block_relation_klass_name: 'block' }
 	end
 end

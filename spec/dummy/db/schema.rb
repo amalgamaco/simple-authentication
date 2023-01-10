@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_06_040359) do
-  create_table "blocks", force: :cascade do |t|
-    t.integer "blocker_id", null: false
-    t.integer "blocked_user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["blocked_user_id"], name: "index_blocks_on_blocked_user_id"
-    t.index ["blocker_id", "blocked_user_id"], name: "index_blocks_on_blocker_id_and_blocked_user_id", unique: true
-    t.index ["blocker_id"], name: "index_blocks_on_blocker_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2022_09_13_134049) do
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer "resource_owner_id", null: false
     t.integer "application_id", null: false
@@ -75,8 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_040359) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "blocks", "users", column: "blocked_user_id"
-  add_foreign_key "blocks", "users", column: "blocker_id"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
 end

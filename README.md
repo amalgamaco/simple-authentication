@@ -24,9 +24,6 @@ Ahora, para recuperar la password de nuestros `users` tenemos dos endpoints , el
 
 La gema devise incluye los metodos necesarios para utilizar este endpoint correctamente, por lo que recomendamos usarla para mantener las cosas "simples".
 
-### Block and Unblock
-Para blockear y desbloquear tenemos tanto interactors como controllers, llamados `block_user` y `unblock_user` respectivamente. Estos reciben el `current_user` (el usuario conectado) y dos parametros: `blocked_user_id` y `block_relation_klass_name`. `blocked_user_id` es el id del usuario que queremos bloquear o desbloquear, y `block_relation_klass_name` es el nombre de nuestro modelo de block que relaciona a los users. 
-
 ## Contribuir
 Para contribuir en esta asombrosa gema, se contribuye de la misma forma que en los proyectos en los que trabajamos, agarramos un issue, lo pasamos a doing, lo pusheamos y mandamos el MR a las personas encargadas de revisar MR's en estandarizacion.
 
