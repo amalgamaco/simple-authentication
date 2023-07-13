@@ -7,6 +7,26 @@ on:
       types: [ main ]
 
 jobs:
+  lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+        with:
+          ruby-version: '3.1.2'
+      - name: Install dependencies
+        run: |
+          gem install json
+          bundle install
+          cd spec/dummy
+          RAILS_ENV=test bin/rails db:create db:migrate
+          cd ../../
+      - name: Lint
+        run: bundle exec rubocop --format progress --format html -oreports/lint.html --format json -oreports/rubocop-result.json
+
   test:
 
     runs-on: ubuntu-latest
