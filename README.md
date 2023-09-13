@@ -1,42 +1,46 @@
 # SimpleAuthentication
 
-SimpleAuthentication es una gema que se encarga de facilitar y abstraer la logica involucrada en los procesos de autorizacion ( sign_up, login ,reset password,etc...).
+SimpleAuthentication is a gem that handles the facilitation and abstraction of the logic involved in authorization processes (sign_up, login, reset password, etc...).
 
-## Como usar esta gema
-Para usar esta gema, simplemente hay que saber como funcionan las distintas partes de la misma, que queramos usar. Las voy a describir a continuacion:
+# Installation
+To add this gem to your project simply add the next line to your project's Gemfile:
+
+```ruby
+gem 'simple_authentication', github: 'amalgamaco/simple-authentication'
+```
+
+## How to Use this Gem
+To use this gem, you just need to understand how its different parts work that you want to use. I will describe them below:
 
 ### Controller
-La gema provee una clase controller llamada `SimpleAuth` que llama a los interactors correspondientes a cada funcionalidad. La idea es crear controllers para nuestros modelos que hereden esta clase SimpleAuth y que implementen los metodos `user_klass_name` y `user_attributes` donde como lo indican sus nombres, vamos a definir el nombre del modelo como un string por si tuviesemos el modelo `User`:
+The gem provides a controller class called `SimpleAuth` that calls the corresponding interactors for each functionality. The idea is to create controllers for our models that inherit from this `SimpleAuth` class and implement the `user_klass_name` and `user_attributes` methods. As their names suggest, we will define the model name as a string in `user_klass_name` if we have a model like `User`:
 
-```rb
+```ruby
 def user_klass_name
-	'user'
+  'user'
 end
 ```
-Y para `user_attributes` vamos a definir los `params` que permitir o requerir para crear una nueva instancia del modelo.
+
+And for `user_attributes`, we will define the `params` that we want to allow or require to create a new instance of the model.
 
 ### SignUp
-Para el signUp tenemos un metodo del controller `sign_up` que se encarga de llamar a este interactor pasandole la user_klass_name y los user_attributes que definimos en el controller.
-Al momento de escribir este README, el interactor `signUp` simplemente crea una instancia del modelo que se le indica con los atributos que se le pasan, no hace nada mas por ahora.
+For signing up, we have a method in the controller called `sign_up`, which is responsible for calling this interactor, passing the `user_klass_name` and `user_attributes` that we defined in the controller. At the time of writing this README, the `signUp` interactor simply creates an instance of the model specified with the attributes passed to it; it doesn't do anything more for now.
 
-### Recover password
-Ahora, para recuperar la password de nuestros `users` tenemos dos endpoints , el primero, `forgot_password` que se encarga de usar el mail del usuario que le pasamos para mandar las intrucciones de recuperacion al mismo, suponiendo que tenemos definido algun metodo para la clase usuario llamado `send_reset_password_instructions` que se encargue de la logica de los mails. El segundo endpoint `reset_password` se encarga de ,dado el `user_klass_name` y los `reset_password_params`, que van a variar dependiendo de como reseteemos la pass de un usuario, se encarga de setear la nueva password de nuestro usuario. Al igual que con `forgot_password`, `reset_password` asume que nuestro modelo de usuario sabe resetear una password acorde a un token con un metodo de clase llamado `reset_password_by_token`.
+### Recover Password
+Now, to recover the password of our users, we have two endpoints. The first one, `forgot_password`, is responsible for using the user's email that we pass to it to send recovery instructions to the user, assuming that we have defined a method for the user class called `send_reset_password_instructions` that handles the email logic. The second endpoint, `reset_password`, takes care of setting the new password for our user, given the `user_klass_name` and `reset_password_params`, which will vary depending on how we reset a user's password. It assumes that our user model knows how to reset a password according to a token with a class method called `reset_password_by_token`.
 
-La gema devise incluye los metodos necesarios para utilizar este endpoint correctamente, por lo que recomendamos usarla para mantener las cosas "simples".
+The Devise gem includes the necessary methods to use this endpoint correctly, so we recommend using it to keep things "simple."
 
-## Contribuir
-Para contribuir en esta asombrosa gema, se contribuye de la misma forma que en los proyectos en los que trabajamos, agarramos un issue, lo pasamos a doing, lo pusheamos y mandamos el MR a las personas encargadas de revisar MR's en estandarizacion.
+## Contribute
+To contribute to this amazing gem, you contribute in the same way as in the projects you work on: pick up an issue, move it to "doing," push it, and send the MR to the people responsible for reviewing MRs in standardization.
 
-### Set-up para desarrollo
-Para hacer el setup hay que hacer algo mas, ademas de lo que solemos hacer en proyectos de rails.
-Necesitamos tener sqlite3 instalado (porque eso es lo que usamos para correr los tests en la app de prueba).
-Tenemos que correr:
+### Development Setup
+To set up for development, you need to do a bit more than what we usually do in Rails projects. We need to have sqlite3 installed (because that's what we use to run tests in the sample app). You should run the following commands:
+
 ```sh
-     gem install json
-     bundle install
-     cd spec/dummy
-     RAILS_ENV=test bin/rails db:create db:migrate
-     cd ../../
+gem install json
+bundle install
+cd spec/dummy
+RAILS_ENV=test bin/rails db:create db:migrate
+cd ../../
 ```
-### A quien mandar mr's
-Dentro del grupo de estandarizacion hay responsables de cada foco que se encargan de revisar los mr's, averiguar quienes son en el momento de contribuir.
